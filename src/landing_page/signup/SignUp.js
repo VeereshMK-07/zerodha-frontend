@@ -1,0 +1,163 @@
+import React, { useState } from "react";
+import axios from "axios";
+import "./signup.css";
+
+function Signup() {
+  const [phone, setPhone] = useState("");
+  const [otp, setOtp] = useState("");
+  const [showOtpField, setShowOtpField] = useState(false);
+
+  const handleSendOtp = async () => {
+    if (phone.length !== 10) {
+      alert("Enter valid 10 digit mobile number");
+      return;
+    }
+
+    try {
+      await axios.post(
+        "http://localhost:3002/api/auth/send-otp",
+        { phone },
+        { withCredentials: true },
+      );
+
+      alert("OTP sent! Check backend console.");
+      setShowOtpField(true);
+    } catch (err) {
+      console.error(err);
+      alert("Error sending OTP");
+    }
+  };
+
+  const handleVerifyOtp = async () => {
+    try {
+      await axios.post(
+        "http://localhost:3002/api/auth/verify-otp",
+        { phone, otp },
+        { withCredentials: true },
+      );
+
+      alert("Login successful");
+
+      setOtp("");
+    } catch (err) {
+      console.error(err);
+      alert("Invalid OTP");
+    }
+  };
+
+  return (
+    <div className="signup-page">
+      <div className="signup-container">
+        {/* LEFT SIDE IMAGE */}
+        <div className="signup-left">
+          <img src="media/images/account_open.svg" alt="dashboard" />
+        </div>
+
+        {/* RIGHT SIDE FORM */}
+        <div className="signup-right">
+          <h2>Signup now</h2>
+          <p className="sub-text">Or track your existing application</p>
+
+          <div className="phone-input">
+            <div className="country-code">
+              <img src="media/images/india-flag.svg" alt="flag" /> +91
+            </div>
+
+            <input
+              inputMode="numeric"
+              maxLength="10"
+              value={phone}
+              onChange={(e) => {
+                const value = e.target.value.replace(/[^0-9]/g, "");
+                setPhone(value);
+              }}
+              placeholder="Enter your mobile number"
+            />
+          </div>
+
+          <br />
+
+          <button className="otp-btn" onClick={handleSendOtp}>
+            Get OTP
+          </button>
+
+          {/* OTP INPUT FIELD */}
+          <br />
+          <br />
+
+          {showOtpField && (
+            <>
+              <br />
+
+              <input
+                type="text"
+                placeholder="Enter OTP"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                className="otp-input"
+              />
+
+              <br />
+              <br />
+
+              <button className="otp-btn" onClick={handleVerifyOtp}>
+                Verify OTP
+              </button>
+            </>
+          )}
+
+          <br />
+          <br />
+
+          <p className="terms">
+            By proceeding, you agree to the Zerodha
+            <a href="" style={{ textDecoration: "none" }}>
+              {" "}
+              terms{" "}
+            </a>
+            &
+            <a href="" style={{ textDecoration: "none" }}>
+              {" "}
+              privacy policy{" "}
+            </a>
+          </p>
+
+          <br />
+
+          <p style={{ fontSize: "15px" }}>
+            Looking to open NRI account?
+            <a href="" style={{ textDecoration: "none" }}>
+              {" "}
+              Click here
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <br />
+      <br />
+      <br />
+      <br />
+
+      <div className="container p-5 mb-5">
+        <div className="row text-center">
+          <h2 className="mt-5">Open a Zerodha account</h2>
+
+          <p className="m-3">
+            Modern platforms and apps, ₹0 investments, and flat ₹20 intraday and
+            F&O trades.
+          </p>
+
+          <button
+            className="p-2 btn btn-primary fs-5 mb-5"
+            style={{ width: "18%", margin: "0 auto" }}
+          >
+            Sign up for free
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Signup;
