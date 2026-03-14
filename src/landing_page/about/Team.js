@@ -12,7 +12,7 @@ function Team() {
       >
         <div className="col-6 p-5 text-center">
           <img
-            src="/media/images/Mypic.jpg"
+            src="public/media/images/Mypic.JPG"
             alt="Developer"
             style={{ borderRadius: "100%", width: "70%" }}
           ></img>
