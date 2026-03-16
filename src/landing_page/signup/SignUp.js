@@ -77,7 +77,12 @@ function Signup() {
 
           <br />
 
-          <button className="otp-btn" onClick={handleSendOtp}>
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              window.location.href = "https://zerodha-dashboard-fb5x.onrender.com";
+            }}
+          >
             Get OTP
           </button>
 
