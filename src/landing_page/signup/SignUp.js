@@ -23,7 +23,7 @@ const handleSendOtp = async () => {
 
   try {
     await axios.post(
-      "http://localhost:3002/api/auth/send-otp",
+      "https://zerodha-backend-e1fx.onrender.com/api/auth/send-otp",
       { phone },
       { withCredentials: true }
     );
@@ -40,7 +40,7 @@ const handleSendOtp = async () => {
   const handleVerifyOtp = async () => {
     try {
       await axios.post(
-        "http://localhost:3002/api/auth/verify-otp",
+        "https://zerodha-backend-e1fx.onrender.com/api/auth/verify-otp",
         { phone, otp },
         { withCredentials: true },
       );
