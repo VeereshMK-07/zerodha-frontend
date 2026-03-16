@@ -5,7 +5,8 @@ function Navbar() {
   return (
     <nav
       class="navbar navbar-expand-lg border-bottom  sticky-top"
-      style={{ backgroundColor: "#FFF" }}>
+      style={{ backgroundColor: "#FFF" }}
+    >
       <div class="container p-2">
         <Link class="navbar-brand" to={"/"}>
           <img
@@ -38,20 +39,27 @@ function Navbar() {
                   About
                 </Link>
               </li>
-               <li class="nav-item">
-                <Link class="nav-link active" aria-current="page" to="/products">
+              <li class="nav-item">
+                <Link
+                  class="nav-link active"
+                  aria-current="page"
+                  to="/products"
+                >
                   Products
                 </Link>
               </li>
-               <li class="nav-item">
+              <li class="nav-item">
                 <Link class="nav-link active" aria-current="page" to="/pricing">
                   Pricing
                 </Link>
               </li>
-               <li class="nav-item">
+              <li class="nav-item">
                 <Link class="nav-link active" aria-current="page" to="/support">
                   Support
                 </Link>
+              </li>
+              <li>
+                <a href="https://zerodha-dashboard-fb5x.onrender.com">Dashboard</a>
               </li>
             </ul>
           </form>
