@@ -58,8 +58,10 @@ function Navbar() {
                   Support
                 </Link>
               </li>
-              <li>
-                <a href="https://zerodha-dashboard-fb5x.onrender.com">Dashboard</a>
+              <li class="nav-item">
+                <Link class="nav-link active">
+                <a href="https://zerodha-dashboard-fb5x.onrender.com" style={{textDecoration:"none", color:"black"}}>Dashboard</a>
+                </Link>
               </li>
             </ul>
           </form>
