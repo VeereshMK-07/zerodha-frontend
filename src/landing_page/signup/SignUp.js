@@ -8,8 +8,15 @@ function Signup() {
   const [showOtpField, setShowOtpField] = useState(false);
 
   const handleSendOtp = async () => {
-    if (phone.length !== 10) {
-      alert("Enter valid 10 digit mobile number");
+    const phoneRegex = /^[6-9]\d{9}$/;
+
+    if (!phoneRegex.test(phone)) {
+      alert("Enter a valid Indian mobile number");
+      return;
+    }
+
+    if (/^(\d)\1+$/.test(phone)) {
+      alert("Invalid phone number");
       return;
     }
 
@@ -68,7 +75,9 @@ function Signup() {
               maxLength="10"
               value={phone}
               onChange={(e) => {
-                const value = e.target.value.replace(/[^0-9]/g, "");
+                const value = e.target.value
+                  .replace(/[^0-9]/g, "")
+                  .slice(0, 10);
                 setPhone(value);
               }}
               placeholder="Enter your mobile number"
@@ -80,7 +89,8 @@ function Signup() {
           <button
             className="btn btn-primary"
             onClick={() => {
-              window.location.href = "https://zerodha-dashboard-fb5x.onrender.com";
+              window.location.href =
+                "https://zerodha-dashboard-fb5x.onrender.com";
             }}
           >
             Get OTP
