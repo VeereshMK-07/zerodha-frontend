@@ -74,3 +74,33 @@
   font-size: 15px;
   color: gray;
 }
+
+
+.otp-input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+}
+
+.otp-input:focus {
+  border-color: #387ed1;
+  box-shadow: 0 0 4px rgba(56, 126, 209, 0.4);
+}
+
+.otp-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #387ed1;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.otp-btn:hover {
+  background-color: #2f6bb2;
+}
