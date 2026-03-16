@@ -7,33 +7,35 @@ function Signup() {
   const [otp, setOtp] = useState("");
   const [showOtpField, setShowOtpField] = useState(false);
 
-  const handleSendOtp = async () => {
-    const phoneRegex = /^[6-9]\d{9}$/;
+const handleSendOtp = async () => {
 
-    if (!phoneRegex.test(phone)) {
-      alert("Enter a valid Indian mobile number");
-      return;
-    }
+  const phoneRegex = /^[6-9]\d{9}$/;
 
-    if (/^(\d)\1+$/.test(phone)) {
-      alert("Invalid phone number");
-      return;
-    }
+  if (!phoneRegex.test(phone)) {
+    alert("Enter valid Indian mobile number");
+    return;
+  }
 
-    try {
-      await axios.post(
-        "http://localhost:3002/api/auth/send-otp",
-        { phone },
-        { withCredentials: true },
-      );
+  if (/^(\d)\1+$/.test(phone)) {
+    alert("Invalid phone number");
+    return;
+  }
 
-      alert("OTP sent! Check backend console.");
-      setShowOtpField(true);
-    } catch (err) {
-      console.error(err);
-      alert("Error sending OTP");
-    }
-  };
+  try {
+    await axios.post(
+      "http://localhost:3002/api/auth/send-otp",
+      { phone },
+      { withCredentials: true }
+    );
+
+    alert("OTP sent!");
+    setShowOtpField(true);
+
+  } catch (err) {
+    console.error(err);
+    alert("Error sending OTP");
+  }
+};
 
   const handleVerifyOtp = async () => {
     try {
@@ -46,6 +48,7 @@ function Signup() {
       alert("Login successful");
 
       setOtp("");
+      window.location.href ="https://zerodha-dashboard-fb5x.onrender.com/dashboard";
     } catch (err) {
       console.error(err);
       alert("Invalid OTP");
@@ -85,14 +88,7 @@ function Signup() {
           </div>
 
           <br />
-
-          <button
-            className="btn btn-primary"
-            onClick={() => {
-              window.location.href =
-                "https://zerodha-dashboard-fb5x.onrender.com";
-            }}
-          >
+          <button className="btn btn-primary" onClick={handleSendOtp}>
             Get OTP
           </button>
 
