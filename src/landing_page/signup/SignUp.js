@@ -46,7 +46,6 @@ const handleSendOtp = async () => {
       );
 
       alert("Login successful");
-      localStorage.setItem("isLoggedIn", "true");
 
       setOtp("");
       window.location.href ="https://zerodha-dashboard-fb5x.onrender.com/";
