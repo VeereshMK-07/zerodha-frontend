@@ -49,7 +49,7 @@ const handleSendOtp = async () => {
       localStorage.setItem("isLoggedIn", "true");
 
       setOtp("");
-      window.location.href ="https://zerodha-dashboard-fb5x.onrender.com/dashboard";
+      window.location.href ="https://zerodha-dashboard-fb5x.onrender.com/";
     } catch (err) {
       console.error(err);
       alert("Invalid OTP");
