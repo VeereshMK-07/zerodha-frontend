@@ -24,8 +24,7 @@ const handleSendOtp = async () => {
   try {
     await axios.post(
       "https://zerodha-backend-e1fx.onrender.com/api/auth/send-otp",
-      { phone },
-      { withCredentials: true }
+      { phone }
     );
 
     alert("OTP sent!");
@@ -38,22 +37,27 @@ const handleSendOtp = async () => {
 };
 
   const handleVerifyOtp = async () => {
-    try {
-      await axios.post(
-        "https://zerodha-backend-e1fx.onrender.com/api/auth/verify-otp",
-        { phone, otp },
-        { withCredentials: true },
-      );
+  try {
+    const res = await axios.post(
+      "https://zerodha-backend-e1fx.onrender.com/api/auth/verify-otp",
+      { phone, otp }
+    );
 
-      alert("Login successful");
+    // STORE TOKEN
+    localStorage.setItem("token", res.data.token);
 
-      setOtp("");
-      window.location.href ="https://zerodha-dashboard-fb5x.onrender.com/";
-    } catch (err) {
-      console.error(err);
-      alert("Invalid OTP");
-    }
-  };
+    alert("Login successful");
+
+    setOtp("");
+
+    // REDIRECT
+    window.location.href =
+      "https://zerodha-dashboard-fb5x.onrender.com/";
+  } catch (err) {
+    console.error(err);
+    alert("Invalid OTP");
+  }
+};
 
   return (
     <div className="signup-page">
