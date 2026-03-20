@@ -7,57 +7,54 @@ function Signup() {
   const [otp, setOtp] = useState("");
   const [showOtpField, setShowOtpField] = useState(false);
 
-const handleSendOtp = async () => {
+  const handleSendOtp = async () => {
+    const phoneRegex = /^[6-9]\d{9}$/;
 
-  const phoneRegex = /^[6-9]\d{9}$/;
+    if (!phoneRegex.test(phone)) {
+      alert("Enter valid Indian mobile number");
+      return;
+    }
 
-  if (!phoneRegex.test(phone)) {
-    alert("Enter valid Indian mobile number");
-    return;
-  }
+    if (/^(\d)\1+$/.test(phone)) {
+      alert("Invalid phone number");
+      return;
+    }
 
-  if (/^(\d)\1+$/.test(phone)) {
-    alert("Invalid phone number");
-    return;
-  }
+    try {
+      await axios.post(
+        "https://zerodha-backend-e1fx.onrender.com/api/auth/send-otp",
+        { phone },
+      );
 
-  try {
-    await axios.post(
-      "https://zerodha-backend-e1fx.onrender.com/api/auth/send-otp",
-      { phone }
-    );
-
-    alert("OTP sent!");
-    setShowOtpField(true);
-
-  } catch (err) {
-    console.error(err);
-    alert("Error sending OTP");
-  }
-};
+      alert("OTP sent!");
+      setShowOtpField(true);
+    } catch (err) {
+      console.error(err);
+      alert("Error sending OTP");
+    }
+  };
 
   const handleVerifyOtp = async () => {
-  try {
-    const res = await axios.post(
-      "https://zerodha-backend-e1fx.onrender.com/api/auth/verify-otp",
-      { phone, otp }
-    );
+    try {
+      const res = await axios.post(
+        "https://zerodha-backend-e1fx.onrender.com/api/auth/verify-otp",
+        { phone, otp },
+      );
 
-    // STORE TOKEN
-    localStorage.setItem("token", res.data.token);
+      // STORE TOKEN
+      localStorage.setItem("token", res.data.token);
 
-    alert("Login successful");
+      alert("Login successful");
 
-    setOtp("");
+      setOtp("");
 
-    // REDIRECT
-    window.location.href =
-      "https://zerodha-dashboard-fb5x.onrender.com/";
-  } catch (err) {
-    console.error(err);
-    alert("Invalid OTP");
-  }
-};
+      // REDIRECT
+      window.location.href = `https://zerodha-dashboard-fb5x.onrender.com/?token=${res.data.token}`;
+    } catch (err) {
+      console.error(err);
+      alert("Invalid OTP");
+    }
+  };
 
   return (
     <div className="signup-page">
