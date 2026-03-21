@@ -93,7 +93,7 @@
 .otp-btn {
   width: 100%;
   padding: 12px;
-  background-color: #000000;
+  background-color: #387ed1;
   border: none;
   border-radius: 6px;
   color: white;
@@ -101,7 +101,7 @@
   cursor: pointer;
 }
 
-/* .otp-btn:hover {
-  background-color: #000000;
-} */
+button:hover{
+  background-color: black;
+}
 
