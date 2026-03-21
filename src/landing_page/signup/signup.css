@@ -101,7 +101,20 @@
   cursor: pointer;
 }
 
-button:hover{
-  background-color: black;
+
+
+.get-otp-btn {
+  width: 50%;
+  padding: 12px;
+  background-color: #387ed1;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
+.get-otp-btn:hover {
+   background: linear-gradient(135deg, #387ed1, #6c63ff);
+}

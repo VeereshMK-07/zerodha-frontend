@@ -89,7 +89,7 @@ function Signup() {
           </div>
 
           <br />
-          <button className="btn btn-primary" onClick={handleSendOtp}>
+          <button className="get-otp-btn" onClick={handleSendOtp}>
             Get OTP
           </button>
 
