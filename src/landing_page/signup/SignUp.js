@@ -6,6 +6,8 @@ function Signup() {
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
   const [showOtpField, setShowOtpField] = useState(false);
+  const [loadingOtp, setLoadingOtp] = useState(false);
+  const [verifyingOtp, setVerifyingOtp] = useState(false);
 
   const handleSendOtp = async () => {
     const phoneRegex = /^[6-9]\d{9}$/;
@@ -21,6 +23,7 @@ function Signup() {
     }
 
     try {
+      setLoadingOtp(true);
       await axios.post(
         "https://zerodha-backend-e1fx.onrender.com/api/auth/send-otp",
         { phone },
@@ -31,11 +34,14 @@ function Signup() {
     } catch (err) {
       console.error(err);
       alert("Error sending OTP");
+    } finally {
+      setLoadingOtp(false);
     }
   };
 
   const handleVerifyOtp = async () => {
     try {
+      setVerifyingOtp(true);
       const res = await axios.post(
         "https://zerodha-backend-e1fx.onrender.com/api/auth/verify-otp",
         { phone, otp },
@@ -53,6 +59,8 @@ function Signup() {
     } catch (err) {
       console.error(err);
       alert("Invalid OTP");
+    } finally {
+      setVerifyingOtp(false);
     }
   };
 
@@ -89,8 +97,12 @@ function Signup() {
           </div>
 
           <br />
-          <button className="get-otp-btn" onClick={handleSendOtp}>
-            Get OTP
+          <button
+            className="get-otp-btn"
+            onClick={handleSendOtp}
+            disabled={loadingOtp}
+          >
+            {loadingOtp ? <span className="spinner"></span> : "Get OTP"}
           </button>
 
           {/* OTP INPUT FIELD */}
@@ -113,8 +125,16 @@ function Signup() {
               <br />
               <br />
 
-              <button className="otp-btn" onClick={handleVerifyOtp}>
-                Verify OTP
+              <button
+                className="otp-btn"
+                onClick={handleVerifyOtp}
+                disabled={verifyingOtp}
+              >
+                {verifyingOtp ? (
+                  <span className="spinner"></span>
+                ) : (
+                  "Verify OTP"
+                )}
               </button>
             </>
           )}
