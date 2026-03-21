@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {toast} from "react-toastify";
 import axios from "axios";
 import "./signup.css";
 
@@ -13,12 +14,12 @@ function Signup() {
     const phoneRegex = /^[6-9]\d{9}$/;
 
     if (!phoneRegex.test(phone)) {
-      alert("Enter valid Indian mobile number");
+      toast.warning("Enter valid Indian mobile number 📱");
       return;
     }
 
     if (/^(\d)\1+$/.test(phone)) {
-      alert("Invalid phone number");
+      toast.warning("Invalid phone number ⚠️");
       return;
     }
 
@@ -29,11 +30,11 @@ function Signup() {
         { phone },
       );
 
-      alert("OTP sent!");
+      toast.success("OTP sent successfully 🚀");
       setShowOtpField(true);
     } catch (err) {
       console.error(err);
-      alert("Error sending OTP");
+      toast.error("Error sending OTP ❌");
     } finally {
       setLoadingOtp(false);
     }
@@ -50,7 +51,7 @@ function Signup() {
       // STORE TOKEN
       localStorage.setItem("token", res.data.token);
 
-      alert("Login successful");
+      toast.success("Login successful 🎉");
 
       setOtp("");
 
@@ -58,7 +59,7 @@ function Signup() {
       window.location.href = `https://zerodha-dashboard-fb5x.onrender.com/?token=${res.data.token}`;
     } catch (err) {
       console.error(err);
-      alert("Invalid OTP");
+      toast.error("Invalid OTP ❌");
     } finally {
       setVerifyingOtp(false);
     }
