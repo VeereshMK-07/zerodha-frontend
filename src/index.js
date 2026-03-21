@@ -32,5 +32,5 @@ root.render(
     <Footer />
 
     <ToastContainer position="top-right" autoClose={3000} theme="colored" />
-  </BrowserRouter>,
+  </BrowserRouter>
 );
