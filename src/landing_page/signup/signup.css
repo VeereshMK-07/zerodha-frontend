@@ -102,5 +102,9 @@
 }
 
 .otp-btn:hover {
-  background-color: #2f6bb2;
+  background-color: #000000;
+}
+
+.btn :hover{
+  background-color: #000000;
 }
