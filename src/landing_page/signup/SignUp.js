@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 import axios from "axios";
 import "./signup.css";
 
@@ -10,6 +10,11 @@ function Signup() {
   const [loadingOtp, setLoadingOtp] = useState(false);
   const [verifyingOtp, setVerifyingOtp] = useState(false);
 
+  const [showNameInput, setShowNameInput] = useState(false);
+  const [name, setName] = useState("");
+  const [token, setToken] = useState("");
+
+  // ================= SEND OTP =================
   const handleSendOtp = async () => {
     const phoneRegex = /^[6-9]\d{9}$/;
 
@@ -25,59 +30,85 @@ function Signup() {
 
     try {
       setLoadingOtp(true);
+
       await axios.post(
         "https://zerodha-backend-e1fx.onrender.com/api/auth/send-otp",
-        { phone },
+        { phone }
       );
 
       toast.success("OTP sent successfully 🚀");
       setShowOtpField(true);
+
     } catch (err) {
-      console.error(err);
       toast.error("Error sending OTP ❌");
     } finally {
       setLoadingOtp(false);
     }
   };
 
+  // ================= VERIFY OTP =================
   const handleVerifyOtp = async () => {
     try {
       setVerifyingOtp(true);
+
       const res = await axios.post(
         "https://zerodha-backend-e1fx.onrender.com/api/auth/verify-otp",
-        { phone, otp },
+        { phone, otp }
       );
 
-      // STORE TOKEN
       localStorage.setItem("token", res.data.token);
+      setToken(res.data.token);
 
       toast.success("Login successful 🎉");
 
-      setOtp("");
+      // 🔥 CHECK USER TYPE
+      if (res.data.isNewUser) {
+        setShowNameInput(true); // ask name
+      } else {
+        window.location.href = `https://zerodha-dashboard-fb5x.onrender.com/?token=${res.data.token}`;
+      }
 
-      // REDIRECT
-      window.location.href = `https://zerodha-dashboard-fb5x.onrender.com/?token=${res.data.token}`;
     } catch (err) {
-      console.error(err);
       toast.error("Invalid OTP ❌");
     } finally {
       setVerifyingOtp(false);
     }
   };
 
+  // ================= SAVE NAME =================
+  const handleSaveName = async () => {
+    try {
+      await axios.post(
+        "https://zerodha-backend-e1fx.onrender.com/api/auth/save-name",
+        { name },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      toast.success(`Welcome ${name} 🎉`);
+
+      window.location.href = `https://zerodha-dashboard-fb5x.onrender.com/?token=${token}`;
+
+    } catch (err) {
+      toast.error("Error saving name ❌");
+    }
+  };
+
   return (
     <div className="signup-page">
       <div className="signup-container">
-        {/* LEFT SIDE IMAGE */}
         <div className="signup-left">
           <img src="media/images/account_open.svg" alt="dashboard" />
         </div>
 
-        {/* RIGHT SIDE FORM */}
         <div className="signup-right">
           <h2>Signup now</h2>
           <p className="sub-text">Or track your existing application</p>
 
+          {/* PHONE */}
           <div className="phone-input">
             <div className="country-code">
               <img src="media/images/india-flag.svg" alt="flag" /> +91
@@ -98,6 +129,8 @@ function Signup() {
           </div>
 
           <br />
+
+          {/* GET OTP */}
           <button
             className="get-otp-btn"
             onClick={handleSendOtp}
@@ -106,14 +139,11 @@ function Signup() {
             {loadingOtp ? <span className="spinner"></span> : "Get OTP"}
           </button>
 
-          {/* OTP INPUT FIELD */}
-          <br />
-          <br />
+          <br /><br />
 
-          {showOtpField && (
+          {/* OTP SECTION */}
+          {showOtpField && !showNameInput && (
             <>
-              <br />
-
               <input
                 type="text"
                 maxLength="6"
@@ -123,71 +153,38 @@ function Signup() {
                 className="otp-input"
               />
 
-              <br />
-              <br />
+              <br /><br />
 
               <button
                 className="otp-btn"
                 onClick={handleVerifyOtp}
                 disabled={verifyingOtp}
               >
-                {verifyingOtp ? (
-                  <span className="spinner"></span>
-                ) : (
-                  "Verify OTP"
-                )}
+                {verifyingOtp ? <span className="spinner"></span> : "Verify OTP"}
               </button>
             </>
           )}
 
-          <br />
-          <br />
+          {/* NAME INPUT */}
+          {showNameInput && (
+            <>
+              <input
+                type="text"
+                placeholder="Enter your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="otp-input"
+              />
 
-          <p className="terms">
-            By proceeding, you agree to the Zerodha
-            <a href="" style={{ textDecoration: "none" }}>
-              {" "}
-              terms{" "}
-            </a>
-            &
-            <a href="" style={{ textDecoration: "none" }}>
-              {" "}
-              privacy policy{" "}
-            </a>
-          </p>
+              <br /><br />
 
-          <br />
+              <button className="otp-btn" onClick={handleSaveName}>
+                Continue
+              </button>
+            </>
+          )}
 
-          <p style={{ fontSize: "15px" }}>
-            Looking to open NRI account?
-            <a href="" style={{ textDecoration: "none" }}>
-              {" "}
-              Click here
-            </a>
-          </p>
-        </div>
-      </div>
-
-      <br />
-      <br />
-      <br />
-      <br />
-
-      <div className="container p-5 mb-5">
-        <div className="row text-center">
-          <h2 className="mt-5">Open a Zerodha account</h2>
-
-          <p className="m-3">
-            Modern platforms and apps, ₹0 investments, and flat ₹20 intraday and
-            F&O trades.
-          </p>
-
-          <button
-            className="p-2 btn btn-primary fs-5 mb-5"
-            style={{ width: "18%", margin: "0 auto" }}
-          >
-            Sign up for free
-          </button>
+          <br /><br />
         </div>
       </div>
     </div>
