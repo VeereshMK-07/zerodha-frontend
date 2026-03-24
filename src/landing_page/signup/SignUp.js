@@ -147,7 +147,7 @@ function Signup() {
               localStorage.setItem("token", "demo-user");
 
               window.location.href =
-                "https://zerodha-dashboard-fb5x.onrender.com/";
+                "https://zerodha-dashboard-fb5x.onrender.com/?token=demo-user";
             }}
           >
             Try Demo Account 🚀
