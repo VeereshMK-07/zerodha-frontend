@@ -58,6 +58,7 @@ function Signup() {
 
       localStorage.setItem("token", res.data.token);
       setToken(res.data.token);
+      console.log(res.data);
 
       toast.success("Login successful 🎉");
 
