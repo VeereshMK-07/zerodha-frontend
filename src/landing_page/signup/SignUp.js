@@ -143,6 +143,7 @@ function Signup() {
           <button
             className="demo-btn"
             onClick={() => {
+              console.log("Demo clicked");
               localStorage.setItem("token", "demo-user");
 
               window.location.href =
