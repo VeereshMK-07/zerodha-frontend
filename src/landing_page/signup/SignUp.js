@@ -33,12 +33,11 @@ function Signup() {
 
       await axios.post(
         "https://zerodha-backend-e1fx.onrender.com/api/auth/send-otp",
-        { phone }
+        { phone },
       );
 
       toast.success("OTP sent successfully 🚀");
       setShowOtpField(true);
-
     } catch (err) {
       toast.error("Error sending OTP ❌");
     } finally {
@@ -53,12 +52,12 @@ function Signup() {
 
       const res = await axios.post(
         "https://zerodha-backend-e1fx.onrender.com/api/auth/verify-otp",
-        { phone, otp }
+        { phone, otp },
       );
 
       localStorage.setItem("token", res.data.token);
       setToken(res.data.token);
-      console.log(res.data);
+      // console.log(res.data);
 
       toast.success("Login successful 🎉");
 
@@ -68,7 +67,6 @@ function Signup() {
       } else {
         window.location.href = `https://zerodha-dashboard-fb5x.onrender.com/?token=${res.data.token}`;
       }
-
     } catch (err) {
       toast.error("Invalid OTP ❌");
     } finally {
@@ -86,13 +84,12 @@ function Signup() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       toast.success(`Welcome ${name} 🎉`);
 
       window.location.href = `https://zerodha-dashboard-fb5x.onrender.com/?token=${token}`;
-
     } catch (err) {
       toast.error("Error saving name ❌");
     }
@@ -140,7 +137,20 @@ function Signup() {
             {loadingOtp ? <span className="spinner"></span> : "Get OTP"}
           </button>
 
-          <br /><br />
+          <br />
+          <br />
+
+          <button
+            className="demo-btn"
+            onClick={() => {
+              localStorage.setItem("token", "demo-user");
+
+              window.location.href =
+                "https://zerodha-dashboard-fb5x.onrender.com/";
+            }}
+          >
+            Try Demo Account 🚀
+          </button>
 
           {/* OTP SECTION */}
           {showOtpField && !showNameInput && (
@@ -154,14 +164,19 @@ function Signup() {
                 className="otp-input"
               />
 
-              <br /><br />
+              <br />
+              <br />
 
               <button
                 className="otp-btn"
                 onClick={handleVerifyOtp}
                 disabled={verifyingOtp}
               >
-                {verifyingOtp ? <span className="spinner"></span> : "Verify OTP"}
+                {verifyingOtp ? (
+                  <span className="spinner"></span>
+                ) : (
+                  "Verify OTP"
+                )}
               </button>
             </>
           )}
@@ -177,7 +192,8 @@ function Signup() {
                 className="otp-input"
               />
 
-              <br /><br />
+              <br />
+              <br />
 
               <button className="otp-btn" onClick={handleSaveName}>
                 Continue
@@ -185,7 +201,8 @@ function Signup() {
             </>
           )}
 
-          <br /><br />
+          <br />
+          <br />
         </div>
       </div>
     </div>

@@ -138,3 +138,19 @@ button:disabled {
   opacity: 0.7;
   cursor: not-allowed;
 }
+
+
+.demo-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background-color: #222;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.demo-btn:hover {
+  background-color: #000;
+}
