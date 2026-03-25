@@ -6,12 +6,14 @@ import "./signup.css";
 function Signup() {
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
+  const [name, setName] = useState("");
+
   const [showOtpField, setShowOtpField] = useState(false);
+  const [showNameInput, setShowNameInput] = useState(false);
+
   const [loadingOtp, setLoadingOtp] = useState(false);
   const [verifyingOtp, setVerifyingOtp] = useState(false);
 
-  const [showNameInput, setShowNameInput] = useState(false);
-  const [name, setName] = useState("");
   const [token, setToken] = useState("");
 
   // ================= SEND OTP =================
@@ -33,7 +35,7 @@ function Signup() {
 
       await axios.post(
         "https://zerodha-backend-e1fx.onrender.com/api/auth/send-otp",
-        { phone },
+        { phone }
       );
 
       toast.success("OTP sent successfully 🚀");
@@ -52,18 +54,16 @@ function Signup() {
 
       const res = await axios.post(
         "https://zerodha-backend-e1fx.onrender.com/api/auth/verify-otp",
-        { phone, otp },
+        { phone, otp }
       );
 
       localStorage.setItem("token", res.data.token);
       setToken(res.data.token);
-      // console.log(res.data);
 
       toast.success("Login successful 🎉");
 
-      // 🔥 CHECK USER TYPE
       if (res.data.isNewUser) {
-        setShowNameInput(true); // ask name
+        setShowNameInput(true);
       } else {
         window.location.href = `https://zerodha-dashboard-fb5x.onrender.com/?token=${res.data.token}`;
       }
@@ -76,6 +76,11 @@ function Signup() {
 
   // ================= SAVE NAME =================
   const handleSaveName = async () => {
+    if (!name.trim()) {
+      toast.warning("Please enter your name");
+      return;
+    }
+
     try {
       await axios.post(
         "https://zerodha-backend-e1fx.onrender.com/api/auth/save-name",
@@ -84,8 +89,10 @@ function Signup() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
+        }
       );
+
+      localStorage.setItem("token", token);
 
       toast.success(`Welcome ${name} 🎉`);
 
@@ -93,6 +100,14 @@ function Signup() {
     } catch (err) {
       toast.error("Error saving name ❌");
     }
+  };
+
+  // ================= DEMO =================
+  const handleDemo = () => {
+    localStorage.setItem("token", "demo-user");
+
+    window.location.href =
+      "https://zerodha-dashboard-fb5x.onrender.com/?token=demo-user";
   };
 
   return (
@@ -140,22 +155,16 @@ function Signup() {
           <br />
           <br />
 
-          <button
-            className="demo-btn"
-            onClick={() => {
-              console.log("Demo clicked");
-              localStorage.setItem("token", "demo-user");
-
-              window.location.href =
-                "https://zerodha-dashboard-fb5x.onrender.com/?token=demo-user";
-            }}
-          >
+          {/* DEMO */}
+          <button className="demo-btn" onClick={handleDemo}>
             Try Demo Account 🚀
           </button>
 
-          {/* OTP SECTION */}
+          {/* OTP */}
           {showOtpField && !showNameInput && (
             <>
+              <br />
+
               <input
                 type="text"
                 maxLength="6"
@@ -182,15 +191,17 @@ function Signup() {
             </>
           )}
 
-          {/* NAME INPUT */}
+          {/* NAME */}
           {showNameInput && (
             <>
+              <br />
+
               <input
                 type="text"
                 placeholder="Enter your name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="otp-input"
+                className="name-input"
               />
 
               <br />
@@ -201,9 +212,6 @@ function Signup() {
               </button>
             </>
           )}
-
-          <br />
-          <br />
         </div>
       </div>
     </div>
