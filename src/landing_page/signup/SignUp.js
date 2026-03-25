@@ -76,31 +76,35 @@ function Signup() {
 
   // ================= SAVE NAME =================
   const handleSaveName = async () => {
-    if (!name.trim()) {
-      toast.warning("Please enter your name");
-      return;
-    }
+  if (!name.trim()) {
+    toast.warning("Please enter your name");
+    return;
+  }
 
-    try {
-      await axios.post(
-        "https://zerodha-backend-e1fx.onrender.com/api/auth/save-name",
-        { name },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+  try {
+    await axios.post(
+      "https://zerodha-backend-e1fx.onrender.com/api/auth/save-name",
+      { name },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
-      localStorage.setItem("token", token);
+    localStorage.setItem("token", token);
 
-      toast.success(`Welcome ${name} 🎉`);
+    toast.success(`Welcome ${name} 🎉`);
 
+    // DELAY
+    setTimeout(() => {
       window.location.href = `https://zerodha-dashboard-fb5x.onrender.com/?token=${token}`;
-    } catch (err) {
-      toast.error("Error saving name ❌");
-    }
-  };
+    }, 500);
+
+  } catch (err) {
+    toast.error("Error saving name ❌");
+  }
+};
 
   // ================= DEMO =================
   const handleDemo = () => {
