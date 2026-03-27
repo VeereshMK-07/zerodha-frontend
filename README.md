@@ -7,6 +7,7 @@ A full-stack stock trading web application inspired by Zerodha, designed to simu
 ## 🚀 Live Demo
 
 🔗 https://zerodha-frontend-dzxz.onrender.com  
+
 💡 Use the Demo Account feature to explore the dashboard instantly without signup.
 
 ---
