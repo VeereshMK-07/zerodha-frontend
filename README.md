@@ -1,4 +1,4 @@
-#🚀 Zerodha-Inspired Trading Platform (Full-Stack)
+## 🚀 Zerodha-Inspired Trading Platform (Full-Stack)
 
 A full-stack stock trading web application inspired by Zerodha, designed to simulate real-time trading workflows including authentication, portfolio management, and order execution.
 
