@@ -1,4 +1,4 @@
-# 📈 Zerodha-Inspired Trading Platform
+#🚀 Zerodha-Inspired Trading Platform (Full-Stack)
 
 A full-stack stock trading web application inspired by Zerodha, designed to simulate real-time trading workflows including authentication, portfolio management, and order execution.
 
@@ -7,6 +7,7 @@ A full-stack stock trading web application inspired by Zerodha, designed to simu
 ## 🚀 Live Demo
 
 🔗 https://zerodha-frontend-dzxz.onrender.com  
+💡 Use the Demo Account feature to explore the dashboard instantly without signup.
 
 ---
 
@@ -50,6 +51,13 @@ A full-stack stock trading web application inspired by Zerodha, designed to simu
 
 ---
 
+## 🧠 Project Overview
+
+A full-stack stock trading simulation platform inspired by Zerodha, designed to replicate real-world trading workflows including authentication, order execution, portfolio tracking, and analytics dashboards.
+
+The project demonstrates scalable architecture, interactive UI, and real-time-like trading experience.
+
+-----------------
 ## 📸 Screenshots
 
 ### 🏠 Landing Page
