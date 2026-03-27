@@ -2,6 +2,9 @@
 
 A full-stack stock trading web application inspired by Zerodha, designed to simulate real-time trading workflows including authentication, portfolio management, and order execution.
 
+![React](https://img.shields.io/badge/React-Frontend-blue)
+![Node.js](https://img.shields.io/badge/Node.js-Backend-green)
+![MongoDB](https://img.shields.io/badge/MongoDB-Database-brightgreen)
 ---
 
 ## 🚀 Live Demo
@@ -60,7 +63,7 @@ The project demonstrates scalable architecture, interactive UI, and real-time-li
 
 -----------------
 ## 📸 Screenshots
-
+-----
 ### 🏠 Landing Page
 <p align="center">
   <img src="assets/images/Home.png" width="800"/>
@@ -73,7 +76,8 @@ The project demonstrates scalable architecture, interactive UI, and real-time-li
   <img src="assets/images/Sign_up.png" width="800"/>
 </p>
 
----
+-----
+
 
 ### 📊 Dashboard Overview
 <p align="center">
@@ -82,6 +86,7 @@ The project demonstrates scalable architecture, interactive UI, and real-time-li
 
 ---
 
+
 ### 💰 Buy / Sell Stocks
 <p align="center">
   <img src="assets/images/Buy.png" width="800"/>
@@ -89,12 +94,14 @@ The project demonstrates scalable architecture, interactive UI, and real-time-li
 
 ---
 
+
+
 ### 📈 Holdings & Portfolio
 <p align="center">
   <img src="assets/images/Holdings.png" width="800"/>
 </p>
 
----
+-----
 
 ### 📉 Analytics & Charts
 <p align="center">
