@@ -139,7 +139,7 @@ npm start
 
 ## 👨‍💻 Author
 
-**Veeresh M KAKAMARI**
+**Veeresh M Kakamari**
 
 - 🔗 GitHub: https://github.com/VeereshMK-07  
 - 💼 LinkedIn: https://www.linkedin.com/in/veeresh-kakamari-7593b02a0/
