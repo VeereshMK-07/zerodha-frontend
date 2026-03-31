@@ -75,7 +75,7 @@ function Signup() {
   };
 
   // ================= SAVE NAME =================
-  const handleSaveName = async () => {
+const handleSaveName = async () => {
   if (!name.trim()) {
     toast.warning("Please enter your name");
     return;
@@ -94,13 +94,14 @@ function Signup() {
 
     localStorage.setItem("token", token);
 
+    // IMPORTANT 
+    localStorage.setItem("userName", name);
+
     toast.success(`Welcome ${name} 🎉`);
 
-    // DELAY
     setTimeout(() => {
       window.location.href = `https://zerodha-dashboard-fb5x.onrender.com/?token=${token}`;
     }, 500);
-
   } catch (err) {
     toast.error("Error saving name ❌");
   }
