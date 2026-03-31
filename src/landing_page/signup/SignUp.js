@@ -58,6 +58,7 @@ function Signup() {
       );
 
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("userPhone", phone);
       setToken(res.data.token);
 
       toast.success("Login successful 🎉");
@@ -96,6 +97,7 @@ const handleSaveName = async () => {
 
     // IMPORTANT 
     localStorage.setItem("userName", name);
+    localStorage.setItem("userPhone", phone);
 
     toast.success(`Welcome ${name} 🎉`);
 
